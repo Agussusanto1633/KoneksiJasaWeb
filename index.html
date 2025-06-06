@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KoneksiJasa - Marketplace Jasa Rumah Tangga</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, #f8f9ff, #ffffff);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .service-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        /* Service Providers */
+        .providers {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .providers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .provider-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .provider-card:hover {
+            transform: scale(1.05);
+        }
+
+        .provider-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .rating {
+            color: #ffd700;
+            margin: 0.5rem 0;
+        }
+
+        /* Contact Buttons */
+        .contact-btn {
+            background: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .contact-btn:hover {
+            background: #128C7E;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .booking-form input, .booking-form textarea {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .booking-form input:focus, .booking-form textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .services-grid, .providers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card, .provider-card {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">🏠 KoneksiJasa</a>
+            <ul class="nav-links">
+                <li><a href="#beranda">Beranda</a></li>
+                <li><a href="#layanan">Layanan</a></li>
+                <li><a href="#mitra">Mitra</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="beranda">
+        <div class="container">
+            <h1>Solusi Jasa Rumah Tangga Terpercaya</h1>
+            <p>Temukan penyedia jasa terbaik untuk kebutuhan rumah Anda. Potong rumput, cuci mobil, dan berbagai layanan lainnya.</p>
+            <a href="#layanan" class="cta-button">Pesan Sekarang</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="layanan">
+        <div class="container">
+            <h2 class="section-title">Layanan Kami</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🌱</div>
+                    <h3>Potong Rumput</h3>
+                    <p>Layanan pemotongan rumput profesional untuk halaman yang rapi dan terawat. Tersedia paket reguler dan one-time service.</p>
+                    <div class="price">Mulai dari Rp 80.000</div>
+                    <button class="contact-btn" onclick="openBookingModal('Potong Rumput')">Pesan Layanan</button>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🚗</div>
+                    <h3>Cuci Mobil</h3>
+                    <p>Cuci mobil premium dengan produk berkualitas. Termasuk cuci exterior, interior, dan waxing untuk hasil maksimal.</p>
+                    <div class="price">Mulai dari Rp 100.000</div>
+                    <button class="contact-btn" onclick="openBookingModal('Cuci Mobil')">Pesan Layanan</button>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">❄️</div>
+                    <h3>Service AC</h3>
+                    <p>Jasa service dan perawatan AC profesional. Termasuk cleaning, isi freon, dan perbaikan untuk AC rumah maupun kantor.</p>
+                    <div class="price">Mulai dari Rp 120.000</div>
+                    <button class="contact-btn" onclick="openBookingModal('Service AC')">Pesan Layanan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Providers -->
+    <section class="providers" id="mitra">
+        <div class="container">
+            <h2 class="section-title">Mitra Terpercaya</h2>
+            <div class="providers-grid">
+                <div class="provider-card">
+                    <div class="provider-avatar">👨</div>
+                    <h3>Erwin Gardening</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (4.9)</div>
+                    <p>Spesialis potong rumput dan perawatan taman dengan pengalaman 5+ tahun</p>
+                    <a href="https://wa.me/6281237575743?text=Halo Erwin, saya ingin memesan jasa potong rumput" class="contact-btn" target="_blank">Chat Erwin</a>
+                </div>
+                
+                <div class="provider-card">
+                    <div class="provider-avatar">👨</div>
+                    <h3>Firman Car Wash</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (4.8)</div>
+                    <p>Jasa cuci mobil premium dengan peralatan modern dan produk berkualitas</p>
+                    <a href="https://wa.me/6285812882170?text=Halo Firman, saya ingin memesan jasa cuci mobil" class="contact-btn" target="_blank">Chat Firman</a>
+                </div>
+                
+                <div class="provider-card">
+                    <div class="provider-avatar">👩</div>
+                    <h3>Erlangga Green Care</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (4.9)</div>
+                    <p>Expert dalam perawatan tanaman dan landscaping untuk hunian modern</p>
+                    <a href="https://wa.me/6282269502453?text=Halo Erlangga, saya ingin konsultasi perawatan tanaman" class="contact-btn" target="_blank">Chat Erlangga</a>
+                </div>
+                
+                <div class="provider-card">
+                    <div class="provider-avatar">👨</div>
+                    <h3>Kelvin Multi Service</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (4.7)</div>
+                    <p>Jasa lengkap: cuci motor, poles mobil, dan maintenance kendaraan bergaransi</p>
+                    <a href="https://wa.me/6282233665564?text=Halo Kelvin, saya ingin tanya layanan maintenance kendaraan" class="contact-btn" target="_blank">Chat Kelvin</a>
+                </div>
+                
+                <div class="provider-card">
+                    <div class="provider-avatar">👨</div>
+                    <h3>Agus AC Service</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ (4.8)</div>
+                    <p>Teknisi AC bersertifikat dengan pengalaman 8+ tahun. Spesialis semua merk AC</p>
+                    <a href="https://wa.me/6285785672280?text=Halo Agus, saya butuh service AC" class="contact-btn" target="_blank">Chat Agus</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontak">
+        <div class="container">
+            <p>&copy; 2025 KoneksiJasa. Semua hak dilindungi. | WhatsApp: 0895383015559</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/62895383015559?text=Halo KoneksiJasa, saya butuh bantuan" class="whatsapp-float" target="_blank">
+        💬
+    </a>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBookingModal()">&times;</span>
+            <h2>Pesan Layanan</h2>
+            <form class="booking-form" id="bookingForm">
+                <input type="text" id="customerName" placeholder="Nama Lengkap" required>
+                <input type="tel" id="customerPhone" placeholder="Nomor WhatsApp" required>
+                <input type="text" id="customerAddress" placeholder="Alamat Lengkap" required>
+                <input type="date" id="serviceDate" required>
+                <input type="time" id="serviceTime" required>
+                <textarea id="additionalNotes" placeholder="Catatan tambahan (opsional)" rows="3"></textarea>
+                <button type="submit" class="cta-button">Kirim Pesanan via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let selectedService = '';
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Modal functions
+        function openBookingModal(service) {
+            selectedService = service;
+            document.getElementById('bookingModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBookingModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('bookingModal');
+            if (e.target === modal) {
+                closeBookingModal();
+            }
+        });
+
+        // Handle booking form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const address = document.getElementById('customerAddress').value;
+            const date = document.getElementById('serviceDate').value;
+            const time = document.getElementById('serviceTime').value;
+            const notes = document.getElementById('additionalNotes').value;
+
+            // Format date to Indonesian
+            const dateObj = new Date(date);
+            const formattedDate = dateObj.toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Create WhatsApp message
+            const message = `🏠 *PESANAN BARU KONEKSIJASA* 🏠
+
+📋 *Detail Pesanan:*
+• Layanan: ${selectedService}
+• Nama: ${name}
+• WhatsApp: ${phone}
+• Alamat: ${address}
+• Tanggal: ${formattedDate}
+• Waktu: ${time}
+${notes ? `• Catatan: ${notes}` : ''}
+
+Mohon konfirmasi ketersediaan jadwal. Terima kasih! 🙏`;
+
+            // Send to WhatsApp in new tab/window
+            const waUrl = `https://wa.me/62895383015559?text=${encodeURIComponent(message)}`;
+            
+            // Force open in new tab/window
+            const newWindow = window.open(waUrl, '_blank', 'noopener,noreferrer');
+            
+            // Fallback if popup blocked
+            if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                // If popup is blocked, show user a message
+                alert('Popup diblokir! Silakan klik OK untuk membuka WhatsApp di tab baru.');
+                window.open(waUrl, '_blank');
+            }
+            
+            // Close modal and reset form
+            closeBookingModal();
+            this.reset();
+            
+            // Show success message
+            alert('Pesanan Anda akan dikirim ke WhatsApp di tab baru. Terima kasih!');
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all service and provider cards
+        document.querySelectorAll('.service-card, .provider-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('serviceDate').setAttribute('min', today);
+    </script>
+</body>
+</html>
